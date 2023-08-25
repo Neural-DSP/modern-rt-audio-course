@@ -31,8 +31,8 @@ public:
     ParametricEqualizer() = delete;
 
     // No copy sematics
-    ParametricEqualizer(const ParametricEqualizer&);
-    const ParametricEqualizer& operator=(const ParametricEqualizer&);
+    ParametricEqualizer(const ParametricEqualizer&) = delete;
+    const ParametricEqualizer& operator=(const ParametricEqualizer&) = delete;
 
     // No move semantics
     ParametricEqualizer(ParametricEqualizer&&) = delete;

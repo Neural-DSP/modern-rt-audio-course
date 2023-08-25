@@ -1,5 +1,7 @@
 #include "Biquad.h"
 
+#include <algorithm>
+
 namespace mrta
 {
 
@@ -48,9 +50,7 @@ void Biquad::setSectionCoeffs(const std::array<float, CoeffsPerSection>& newSect
 
 void Biquad::process(float* const* output, const float* const* input, unsigned int numChannels, unsigned int numSamples)
 {
-    if (numChannels > allocatedChannels)
-        return;
-
+    numChannels = std::min(numChannels, allocatedChannels);
     for (unsigned int c = 0; c < numChannels; ++c)
     {
         for (unsigned int n = 0; n < numSamples; ++n)
