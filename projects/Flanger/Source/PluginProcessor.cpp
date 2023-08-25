@@ -20,7 +20,7 @@ FlangerAudioProcessor::~FlangerAudioProcessor()
 {
 }
 
-void FlangerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+void FlangerAudioProcessor::prepareToPlay(double sampleRate, int /*samplesPerBlock*/)
 {
     parameterManager.updateParameters(true);
 }
@@ -29,7 +29,7 @@ void FlangerAudioProcessor::releaseResources()
 {
 }
 
-void FlangerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void FlangerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& /*midiMessages*/)
 {
     juce::ScopedNoDenormals noDenormals;
     parameterManager.updateParameters();
@@ -56,7 +56,7 @@ double FlangerAudioProcessor::getTailLengthSeconds() const { return 0.0; }
 int FlangerAudioProcessor::getNumPrograms() { return 1; }
 int FlangerAudioProcessor::getCurrentProgram() { return 0; }
 void FlangerAudioProcessor::setCurrentProgram(int) { }
-const juce::String FlangerAudioProcessor::getProgramName (int index) { return {}; }
+const juce::String FlangerAudioProcessor::getProgramName (int) { return {}; }
 void FlangerAudioProcessor::changeProgramName (int, const juce::String&) { }
 //==============================================================================
 

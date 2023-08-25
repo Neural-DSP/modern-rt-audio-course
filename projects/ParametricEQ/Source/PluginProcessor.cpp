@@ -27,73 +27,73 @@ ParametricEQAudioProcessor::ParametricEQAudioProcessor() :
     eq(3)
 {
     parameterManager.registerParameterCallback(Param::ID::Band0Type,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandType(0, static_cast<mrta::ParametricEqualizer::FilterType>(std::round(val)));
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band0Freq,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandFrequency(0, val);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band0Reso,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandResonance(0, val);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band0Gain,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandGain(0, val);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band1Type,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandType(1, static_cast<mrta::ParametricEqualizer::FilterType>(std::round(val)));
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band1Freq,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandFrequency(1, val);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band1Reso,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandResonance(1, val);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band1Gain,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandGain(1, val);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band2Type,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandType(2, static_cast<mrta::ParametricEqualizer::FilterType>(std::round(val)));
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band2Freq,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandFrequency(2, val);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band2Reso,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandResonance(2, val);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Band2Gain,
-    [this] (float val, bool)
+    [this] (float val, bool /*force*/)
     {
         eq.setBandGain(2, val);
     });
@@ -104,7 +104,7 @@ ParametricEQAudioProcessor::~ParametricEQAudioProcessor()
 }
 
 
-void ParametricEQAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+void ParametricEQAudioProcessor::prepareToPlay(double sampleRate, int /*samplesPerBlock*/)
 {
     unsigned int maxNumChannels = std::max(getMainBusNumInputChannels(), getMainBusNumOutputChannels());
     eq.prepare(sampleRate, maxNumChannels);
@@ -116,7 +116,7 @@ void ParametricEQAudioProcessor::releaseResources()
     eq.clear();
 }
 
-void ParametricEQAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void ParametricEQAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& /*midiMessages*/)
 {
     juce::ScopedNoDenormals noDenormals;
     parameterManager.updateParameters();

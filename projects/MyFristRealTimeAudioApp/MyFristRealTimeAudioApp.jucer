@@ -5,7 +5,7 @@
               pluginManufacturer="Modern Real-Time Audio" pluginManufacturerCode="Mrta"
               pluginCode="Mfrt" pluginChannelConfigs="{1, 1}, {2, 2}" companyCopyright="Modern Real-Time Audio"
               pluginDesc="My First Real-Time Audio App" pluginName="My First Real-Time Audio App"
-              companyName="Moder Real-Time Audio">
+              companyName="Moder Real-Time Audio" displaySplashScreen="1" headerPath="../../../../dependencies/asiosdk/common">
   <MAINGROUP id="Cv3KFB" name="MyFristRealTimeAudioApp">
     <GROUP id="{69023EE2-E7ED-5F26-3B2F-85685C2B01AC}" name="Source">
       <FILE id="dcXMna" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -34,7 +34,8 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="mrta_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"
+               JUCE_ASIO="1"/>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">
       <CONFIGURATIONS>

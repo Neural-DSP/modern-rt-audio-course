@@ -38,7 +38,7 @@ struct ParameterInfo
         jassert(ID.isNotEmpty());
         jassert(min < max);
         jassert(def <= max && def >= min);
-        jassert(steps.size() == 0 || steps.size() == static_cast<unsigned int>(max + 1.f));
+        jassert(steps.size() == 0 || steps.size() == static_cast<int>(max + 1.f));
     }
 
     // Bool ctor
@@ -78,10 +78,10 @@ struct ParameterInfo
         inc { other.inc }, skw { other.skw }
     { }
 
-    // Move ctor
+    // No move ctor
     ParameterInfo(ParameterInfo&& other) :
-        ID { std::move(other.ID) }, name { std::move(other.name) },
-        unit { std::move(other.unit) }, steps { std::move(other.steps) },
+        ID { other.ID }, name { other.name },
+        unit { other.unit }, steps { other.steps },
         type { other.type },
         def { other.def }, min { other.min }, max { other.max },
         inc { other.inc }, skw { other.skw }

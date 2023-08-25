@@ -26,10 +26,10 @@ public:
         auto scope = abstractFIFO.write(1);
 
         if (scope.blockSize1 > 0)
-            buffer[scope.startIndex1] = std::tie(parameterID, newValue);
+            buffer[scope.startIndex1] = std::make_pair(parameterID, newValue);
 
         if (scope.blockSize2 > 0)
-            buffer[scope.startIndex2] = std::tie(parameterID, newValue);
+            buffer[scope.startIndex2] = std::make_pair(parameterID, newValue);
 
         return true;
     }

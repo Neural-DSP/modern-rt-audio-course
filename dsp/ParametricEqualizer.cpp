@@ -2,6 +2,11 @@
 
 #include <cmath>
 
+// Windows does not have Pi constants
+#ifndef M_PI
+  #define M_PI 3.14159265358979323846
+#endif
+
 namespace mrta
 {
 
@@ -77,14 +82,11 @@ void ParametricEqualizer::setBandGain(unsigned int band, float gain)
 
 std::array<float, mrta::Biquad::CoeffsPerSection> ParametricEqualizer::calculateCoeffs(const Band& band)
 {
-    std::array<float, mrta::Biquad::CoeffsPerSection> coeffs;
+    // Flat coeffs
+    std::array<float, mrta::Biquad::CoeffsPerSection> coeffs { 1.f, 0.f, 0.f, 0.f, 0.f };
 
     switch (band.type)
     {
-        case Flat:
-            coeffs = { 1.f, 0.f, 0.f, 0.f, 0.f };
-            break;
-
         case HighPass:
         {
             float n = std::tan(static_cast<float>(M_PI) * band.freq / static_cast<float>(sampleRate));

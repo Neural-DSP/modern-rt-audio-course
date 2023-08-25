@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="BHGkf6" name="Flanger" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" headerPath="../../../../dsp">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" headerPath="../../../../dsp&#10;../../../../dependencies/asiosdk/common"
+              displaySplashScreen="1">
   <MAINGROUP id="xQUmWW" name="Flanger">
     <GROUP id="{95344FAE-D763-4A5B-66EA-3C46D1523401}" name="DSP">
       <FILE id="ZaC25c" name="DelayLine.cpp" compile="1" resource="0" file="../../dsp/DelayLine.cpp"/>
@@ -34,7 +35,8 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="mrta_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"
+               JUCE_ASIO="1"/>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">
       <CONFIGURATIONS>

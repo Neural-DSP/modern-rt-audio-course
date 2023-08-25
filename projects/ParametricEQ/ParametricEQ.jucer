@@ -4,7 +4,8 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Modern Real-Time Audio"
               pluginName="Parametric EQ" pluginDesc="Parametric EQ" pluginManufacturer="Modern Real-Time Audio"
               pluginManufacturerCode="Mrta" pluginCode="Pequ" pluginChannelConfigs="{1, 1}, {2, 2}"
-              headerPath="../../../../dsp">
+              headerPath="../../../../dsp&#10;../../../../dependencies/asiosdk/common"
+              displaySplashScreen="1">
   <MAINGROUP id="xbmex7" name="ParametricEQ">
     <GROUP id="{41102686-D9D7-5806-61E3-64D4D6DFAB4F}" name="dsp">
       <FILE id="gZ8Uqu" name="Biquad.cpp" compile="1" resource="0" file="../../dsp/Biquad.cpp"/>
@@ -41,7 +42,8 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="mrta_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"
+               JUCE_ASIO="1"/>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">
       <CONFIGURATIONS>

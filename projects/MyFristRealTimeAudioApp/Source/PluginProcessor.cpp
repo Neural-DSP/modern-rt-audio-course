@@ -15,35 +15,35 @@ MainProcessor::MainProcessor() :
     parameterManager(*this, ProjectInfo::projectName, ParameterInfos)
 {
     parameterManager.registerParameterCallback(Param::ID::Enabled,
-    [this] (float value, bool forced)
+    [this] (float value, bool /*forced*/)
     {
         DBG(Param::Name::Enabled + ": " + juce::String { value });
         filter.setEnabled(value > 0.5f);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Drive,
-    [this] (float value, bool forced)
+    [this] (float value, bool /*forced*/)
     {
         DBG(Param::Name::Drive + ": " + juce::String { value });
         filter.setDrive(value);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Frequency,
-    [this] (float value, bool forced)
+    [this] (float value, bool /*forced*/)
     {
         DBG(Param::Name::Frequency + ": " + juce::String { value });
         filter.setCutoffFrequencyHz(value);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Resonance,
-    [this] (float value, bool forced)
+    [this] (float value, bool /*forced*/)
     {
         DBG(Param::Name::Resonance + ": " + juce::String { value });
         filter.setResonance(value);
     });
 
     parameterManager.registerParameterCallback(Param::ID::Mode,
-    [this] (float value, bool forced)
+    [this] (float value, bool /*forced*/)
     {
         DBG(Param::Name::Mode + ": " + juce::String { value });
         filter.setMode(static_cast<juce::dsp::LadderFilter<float>::Mode>(std::floor(value)));
@@ -76,7 +76,7 @@ void MainProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     parameterManager.updateParameters(true);
 }
 
-void MainProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void MainProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& /*midiMessages*/)
 {
     juce::ScopedNoDenormals noDenormals;
     parameterManager.updateParameters();
@@ -118,9 +118,9 @@ bool MainProcessor::isMidiEffect() const { return false; }
 double MainProcessor::getTailLengthSeconds() const { return 0.0; }
 int MainProcessor::getNumPrograms() { return 1; }
 int MainProcessor::getCurrentProgram() { return 0; }
-void MainProcessor::setCurrentProgram (int index) { }
-const juce::String MainProcessor::getProgramName(int index) { return {}; }
-void MainProcessor::changeProgramName(int index, const juce::String& newName) { }
+void MainProcessor::setCurrentProgram (int) { }
+const juce::String MainProcessor::getProgramName(int) { return {}; }
+void MainProcessor::changeProgramName(int, const juce::String&) { }
 bool MainProcessor::hasEditor() const { return true; }
 //==============================================================================
 
