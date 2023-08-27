@@ -182,7 +182,7 @@ int main()
         // Save it to the default preset
         std::cout << std::endl; // Extra line break for readability
         plugin.save_parameters_to_preset(default_preset);
-        
+
         // Print the default preset to verify
         std::cout << std::endl; // Extra line break for readability
         default_preset.print();

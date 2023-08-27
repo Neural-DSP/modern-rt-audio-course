@@ -54,13 +54,13 @@ int main()
     task_pipeline.add_task([] (float input)
     {
         const float result { input + 1.f };
-        std::cout << "Task 1: add 1.0; Result: " << result << std::endl; 
+        std::cout << "Task 1: add 1.0; Result: " << result << std::endl;
         return result;
     });
 
     task_pipeline.add_task([] (float input)
     {
-        const float result { input * 2.5f }; 
+        const float result { input * 2.5f };
         std::cout << "Task 2: multiply by 2.5; Result: " << result << std::endl;
         return result;
     });

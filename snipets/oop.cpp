@@ -101,7 +101,7 @@ int main()
         float area = tri_0.get_area();
         DBG("tri_0.get_area() -> " << area)
     } // End of scope - call dtor
-    
+
     DBG("") // Print some empty line to make logs more readable
 
     unsigned int num_of_polygons { 3 };
