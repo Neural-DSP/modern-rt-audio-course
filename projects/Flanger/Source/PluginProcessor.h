@@ -1,7 +1,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "DelayLine.h"
+#include "Flanger.h"
 
 namespace Param
 {
@@ -37,17 +37,17 @@ namespace Param
         static constexpr float DepthInc { 0.1f };
         static constexpr float DepthSkw { 0.7f };
 
-        static constexpr float FeedbackMin { 0.f };
+        static constexpr float FeedbackMin { -100.f };
         static constexpr float FeedbackMax { 100.f };
         static constexpr float FeedbackInc { 0.1f };
-        static constexpr float FeedbackSkw { 0.7f };
+        static constexpr float FeedbackSkw { 1.f };
 
         static constexpr float RateMin { 0.1f };
         static constexpr float RateMax { 5.f };
         static constexpr float RateInc { 0.1f };
         static constexpr float RateSkw { 0.5f };
 
-        static const juce::StringArray ModLabels { "Sine", "Triangle", "Random" };
+        static const juce::StringArray ModLabels { "Sine", "Triangle", "Sawtooth" };
 
         static const juce::String EnabledOff { "Off" };
         static const juce::String EnabledOn { "On" };
@@ -91,8 +91,16 @@ public:
     void changeProgramName (int index, const juce::String& newName) override;
     //==============================================================================
 
+    static const unsigned int MaxDelaySizeSamples { 1 << 12 };
+    static const unsigned int MaxChannels { 2 };
+    static const unsigned int MaxProcessBlockSamples{ 32 };
+
 private:
     mrta::ParameterManager parameterManager;
+    mrta::Flanger flanger;
+    mrta::Ramp<float> enableRamp;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FlangerAudioProcessor)
+    juce::AudioBuffer<float> fxBuffer;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FlangerAudioProcessor)
 };
