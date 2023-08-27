@@ -14,9 +14,10 @@ This repository contains code examples and framework to be used along the course
 
 **Nice to have**:
  - [Reaper](https://www.reaper.fm/download.php) - Fully featured DAW. Demo is free and fully functional.
- - [PluginDoctor](https://ddmf.eu/plugindoctor/) - Handy for audio/DSP debugging - Demo is free and fully functional.
+ - [PluginDoctor](https://ddmf.eu/plugindoctor/) - Handy for audio/DSP debugging. Demo is free and fully functional.
  - [SourceTree](https://www.sourcetreeapp.com/) - If you prefer GUI for git.
  - [Surge](https://surge-synthesizer.github.io/) - FOSS synth, handy for quick testing in a DAW.
+ - [SocaLabs Plugins](https://socalabs.com/) - Various useful free plugins, like osciloscope and tone generators.
  - [ASIO4ALL](https://asio4all.org/) - *Windows only*. In case you don’t have a soundcard with an ASIO driver.
 
 ## Cloning the Repository
