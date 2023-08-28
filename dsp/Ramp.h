@@ -9,16 +9,19 @@ template<typename F>
 class Ramp
 {
 public:
-    Ramp(F rampTimeSec) : rampTime { std::fmax(rampTimeSec, minRampTime) }
-    {
-    }
+    // Default ramp time of 50ms
+    static constexpr F DefaultRampTime { static_cast<F>(0.05) };
 
-    ~Ramp()
-    {
-    }
+    Ramp(F rampTimeSec) :
+        rampTime { std::fmax(rampTimeSec, minRampTime) }
+    { }
+
+    ~Ramp() { }
 
     // No default ctor
-    Ramp() = delete;
+    Ramp() :
+        rampTime { DefaultRampTime }
+    { }
 
     // No copy semantics
     Ramp(const Ramp&) = delete;
@@ -35,6 +38,8 @@ public:
         sampleRate = newSampleRate;
         if (skipRamp)
             setTarget(skipRampToValue, true);
+        else
+            setTarget(targetValue);
     }
 
     // Set the target value to the ramp

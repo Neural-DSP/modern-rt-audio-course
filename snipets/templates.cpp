@@ -7,6 +7,9 @@
 // For std::pair
 #include <utility>
 
+// Template allows to use type as arguments for a class
+// Other than type, template also allow compile-time
+// integer constants to be defined
 template<typename Key, typename Value, unsigned int Size>
 class PairQueue
 {
