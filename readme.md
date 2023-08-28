@@ -30,6 +30,8 @@ Otherwise, the `https` will also work.
 git clone --recurse-submodules https://github.com/Neural-DSP/modern-rt-audio-course.git
 ```
 
+You won't be able to push to this repository. If you intend to push branches and commits, it's recommended to create your own fork.
+
 ## Building Projucer
 
 `JUCE` comes as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) of the repository and can be found under the `dependencies` directory.
