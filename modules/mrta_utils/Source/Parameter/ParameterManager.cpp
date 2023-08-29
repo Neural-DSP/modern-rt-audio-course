@@ -87,11 +87,13 @@ void ParameterManager::updateParameters(bool force)
         fifo.clear();
     }
 
-    while (auto newParam = fifo.popParameter())
+    auto newParam = fifo.popParameter();
+    while (newParam.first)
     {
-        auto it = callbacks.find(newParam.value().first);
+        auto it = callbacks.find(newParam.second.first);
         if (it != callbacks.end())
-            it->second(newParam.value().second, false);
+            it->second(newParam.second.second, false);
+        newParam = fifo.popParameter();
     }
 }
 

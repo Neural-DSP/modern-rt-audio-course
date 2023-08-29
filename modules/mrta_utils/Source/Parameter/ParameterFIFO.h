@@ -34,7 +34,7 @@ public:
         return true;
     }
 
-    std::optional<std::pair<juce::String, float>> popParameter()
+    std::pair<bool, std::pair<juce::String, float>> popParameter()
     {
         if (abstractFIFO.getNumReady() == 0)
             return {};
@@ -42,12 +42,12 @@ public:
         auto scope = abstractFIFO.read(1);
 
         if (scope.blockSize1 > 0)
-            return buffer[scope.startIndex1];
+            return { true, buffer[scope.startIndex1] };
 
         if (scope.blockSize2 > 0)
-            return buffer[scope.startIndex2];
+            return {true, buffer[scope.startIndex2] };
 
-        return {};
+        return { false, { "", 0.f } };
     }
 
 private:
