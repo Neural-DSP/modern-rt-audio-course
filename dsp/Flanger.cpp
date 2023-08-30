@@ -11,7 +11,7 @@ namespace mrta
 {
 
 Flanger::Flanger(float maxTimeMs, unsigned int numChannels) :
-    delayLine(static_cast<unsigned int>(std::ceil(std::fmin(maxTimeMs, 1.f) * sampleRate)), numChannels),
+    delayLine(static_cast<unsigned int>(std::ceil(std::fmax(maxTimeMs, 1.f) * sampleRate)), numChannels),
     offsetRamp(0.05f),
     modDepthRamp(0.05f),
     feedbackRamp(0.05f)
@@ -44,6 +44,8 @@ void Flanger::prepare(double newSampleRate, float maxTimeMs, unsigned int numCha
 void Flanger::clear()
 {
     delayLine.clear();
+    feedbackState[0] = 0.f;
+    feedbackState[1] = 0.f;
 }
 
 void Flanger::process(float* const* output, const float* const* input, unsigned int numChannels, unsigned int numSamples)
@@ -78,7 +80,7 @@ void Flanger::process(float* const* output, const float* const* input, unsigned 
         modDepthRamp.applyGain(lfo, numChannels);
         offsetRamp.applySum(lfo, numChannels);
 
-        // Processo feedback gain ramp
+        // Process feedback gain ramp
         feedbackRamp.applyGain(feedbackState, numChannels);
 
         // Read inputs

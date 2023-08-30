@@ -58,17 +58,15 @@ void DelayLine::process(float* output, const float* input, unsigned int numChann
     const unsigned int delayBufferSize{ static_cast<unsigned int>(delayBuffer[0].size()) };
 
     numChannels = std::min(numChannels, static_cast<unsigned int>(delayBuffer.size()));
+
+    unsigned int workingWriteIndex { writeIndex };
+    unsigned int workingReadIndex { (workingWriteIndex + delayBufferSize - delaySamples) % delayBufferSize };
+
     for (unsigned int ch = 0; ch < numChannels; ++ch)
     {
-        unsigned int workingWriteIndex { writeIndex };
-        unsigned int workingReadIndex { (workingWriteIndex + delayBufferSize - delaySamples) % delayBufferSize };
-
         const float x { input[ch] };
         output[ch] = delayBuffer[ch][workingReadIndex];
         delayBuffer[ch][workingWriteIndex] = x;
-
-        ++workingWriteIndex; workingWriteIndex %= delayBufferSize;
-        ++workingReadIndex; workingReadIndex %= delayBufferSize;
     }
 
     ++writeIndex; writeIndex %= delayBufferSize;
@@ -93,7 +91,7 @@ void DelayLine::process(float* const* audioOutput, const float* const* audioInpu
             const float mFrac0 { m - mFloor };
             const float mFrac1 { 1.f - mFrac0 };
 
-            // Calculate read indeces
+            // Calculate read indices
             const unsigned int readIndex0 { (workingReadIndex + delayBufferSize - static_cast<unsigned int>(mFloor)) % delayBufferSize };
             const unsigned int readIndex1 { (readIndex0 + delayBufferSize - 1u) % delayBufferSize };
 
@@ -124,13 +122,13 @@ void DelayLine::process(float* audioOutput, const float* audioInput, const float
 {
     const unsigned int delayBufferSize{ static_cast<unsigned int>(delayBuffer[0].size()) };
 
+    // Calculate base indices based on fixed delay time
+    unsigned int workingWriteIndex { writeIndex };
+    unsigned int workingReadIndex { (workingWriteIndex + delayBufferSize - delaySamples) % delayBufferSize };
+
     numChannels = std::min(numChannels, static_cast<unsigned int>(delayBuffer.size()));
     for (unsigned int ch = 0; ch < numChannels; ++ch)
     {
-        // Calculate base indices based on fixed delay time
-        unsigned int workingWriteIndex { writeIndex };
-        unsigned int workingReadIndex { (workingWriteIndex + delayBufferSize - delaySamples) % delayBufferSize };
-
         // Linear interpolation coefficients
         const float m { std::fmax(modInput[ch], 0.f) };
         const float mFloor { std::floor(m) };
@@ -153,10 +151,6 @@ void DelayLine::process(float* audioOutput, const float* audioInput, const float
 
         // Write input
         delayBuffer[ch][workingWriteIndex] = x;
-
-        // Increament indices
-        ++workingWriteIndex; workingWriteIndex %= delayBufferSize;
-        ++workingReadIndex; workingReadIndex %= delayBufferSize;
     }
 
     // Update persistent write index

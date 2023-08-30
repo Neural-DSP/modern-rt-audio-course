@@ -32,7 +32,7 @@ void ParametricEqualizer::prepare(double newSampleRate, unsigned int maxNumChann
 {
     biquad.reallocateChannels(maxNumChannels);
 
-    sampleRate = newSampleRate;
+    sampleRate = std::fmax(newSampleRate, 1.f);
 
     unsigned int b { 0 };
     for (const auto& band : bands)
@@ -94,13 +94,17 @@ std::array<float, mrta::Biquad::CoeffsPerSection> ParametricEqualizer::calculate
             float invQ = 1.f / band.reso;
             float c1 = 1.f / (1.f + invQ * n + nSquared);
 
-            coeffs = { c1, c1 * -2.f, c1, c1 * 2.f * (nSquared - 1.f), c1 * (1.f - invQ * n + nSquared) };
+            coeffs = { c1, // b0
+                       c1 * -2.f, // b1
+                       c1, // b2
+                       c1 * 2.f * (nSquared - 1.f), // a1
+                       c1 * (1.f - invQ * n + nSquared) }; // a2
         }
         break;
 
         case LowShelf:
         {
-            float A = std::pow(10.f, band.gain * 0.05f);
+            float A = std::sqrt(std::pow(10.f, band.gain * 0.05f));
             float aminus1 = A - 1.f;
             float aplus1 = A + 1.f;
             float omega = (2.f * static_cast<float>(M_PI) * band.freq) / static_cast<float>(sampleRate);
@@ -109,17 +113,17 @@ std::array<float, mrta::Biquad::CoeffsPerSection> ParametricEqualizer::calculate
             float aminus1TimesCoso = aminus1 * coso;
 
             float a0 = 1.f / (aplus1 + aminus1TimesCoso + beta);
-            coeffs = { A * (aplus1 - aminus1TimesCoso + beta) * a0,
-                       A * 2.f * (aminus1 - aplus1 * coso) * a0,
-                       A * (aplus1 - aminus1TimesCoso - beta) * a0,
-                       -2.f * (aminus1 + aplus1 * coso) * a0,
-                       (aplus1 + aminus1TimesCoso - beta) * a0 };
+            coeffs = { A * (aplus1 - aminus1TimesCoso + beta) * a0, // b0
+                       A * 2.f * (aminus1 - aplus1 * coso) * a0, // b1
+                       A * (aplus1 - aminus1TimesCoso - beta) * a0, // b2
+                       -2.f * (aminus1 + aplus1 * coso) * a0, // a1
+                       (aplus1 + aminus1TimesCoso - beta) * a0 }; // a2
         }
         break;
 
         case Peak:
         {
-            float A = std::pow(10.f, band.gain * 0.05f);
+            float A = std::sqrt(std::pow(10.f, band.gain * 0.05f));
             float omega = (2.f * static_cast<float>(M_PI) * band.freq) / static_cast<float>(sampleRate);
             float alpha = std::sin(omega) / (band.reso * 2.f);
             float c2 = -2.f * std::cos(omega);
@@ -144,7 +148,7 @@ std::array<float, mrta::Biquad::CoeffsPerSection> ParametricEqualizer::calculate
 
         case HighShelf:
         {
-            float A = std::pow(10.f, band.gain * 0.05f);
+            float A = std::sqrt(std::pow(10.f, band.gain * 0.05f));
             float aminus1 = A - 1.f;
             float aplus1 = A + 1.f;
             float omega = (2.f * static_cast<float>(M_PI) * band.freq) / static_cast<float>(sampleRate);

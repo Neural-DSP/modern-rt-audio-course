@@ -31,5 +31,5 @@ void ParametricEQAudioProcessorEditor::resized()
     auto localBounds { getLocalBounds() };
     band0ParameterEditor.setBounds(localBounds.removeFromLeft(BandWidth));
     band1ParameterEditor.setBounds(localBounds.removeFromLeft(BandWidth));
-    band2ParameterEditor.setBounds(localBounds.removeFromLeft(BandWidth));
+    band2ParameterEditor.setBounds(localBounds);
 }

@@ -1,5 +1,7 @@
 #include "RingMod.h"
 
+#include <algorithm>
+
 // Windows does not have Pi constants
 #ifndef M_PI
   #define M_PI 3.14159265358979323846
@@ -26,6 +28,7 @@ void RingMod::prepare(double newSampleRate)
 
 void RingMod::process(float* const* output, const float* const* input, unsigned int numChannels, unsigned int numSamples)
 {
+    numChannels = std::min(numChannels, 2u);
     for (unsigned int n = 0; n < numSamples; ++n)
     {
         // Process LFO acording to mod type
@@ -38,13 +41,19 @@ void RingMod::process(float* const* output, const float* const* input, unsigned 
             break;
 
         case Tri:
-            lfo[0] = std::fabs((phaseState[0] - static_cast<float>(M_PI)) / static_cast<float>(M_PI));
-            lfo[1] = std::fabs((phaseState[1] - static_cast<float>(M_PI)) / static_cast<float>(M_PI));
+            lfo[0] = std::fabs((phaseState[0] - static_cast<float>(M_PI)) * static_cast<float>(1.0 / M_PI));
+            lfo[1] = std::fabs((phaseState[1] - static_cast<float>(M_PI)) * static_cast<float>(1.0 / M_PI));
             break;
 
         case Sin:
             lfo[0] = 0.5f + 0.5f * std::sin(phaseState[0]);
             lfo[1] = 0.5f + 0.5f * std::sin(phaseState[1]);
+            break;
+
+
+        case BalSin:
+            lfo[0] = std::sin(phaseState[0]);
+            lfo[1] = std::sin(phaseState[1]);
             break;
         }
 

@@ -29,7 +29,7 @@ namespace Param
     namespace Range
     {
         static constexpr float ModRateMin { 1.f };
-        static constexpr float ModRateMax { 100.f };
+        static constexpr float ModRateMax { 1000.f };
         static constexpr float ModRateInc { 0.1f };
         static constexpr float ModRateSkw { 0.35f };
 
@@ -38,7 +38,7 @@ namespace Param
         static constexpr float ModDepthInc { 0.1f };
         static constexpr float ModDepthSkw { 1.f };
 
-        static const juce::StringArray ModTypeLabels { "Sin", "Rect. Sin", "Tri" };
+        static const juce::StringArray ModTypeLabels { "Sin", "Bal. Sin", "Rect. Sin", "Tri" };
     }
 }
 

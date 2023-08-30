@@ -11,6 +11,7 @@ public:
     enum ModType : unsigned int
     {
         Sin,
+        BalSin,
         RectSin,
         Tri
     };
